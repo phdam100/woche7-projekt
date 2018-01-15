@@ -3,35 +3,31 @@ package entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 import additions.Rules;
-import lombok.Data;
 
-@Data
 @Entity
 public class Group {
 	
 	@Id
-	private String name;
+	private String groupname;
 	private boolean isOpen;
 	private int minMember;
 	private int maxMember;
-	@OneToMany(mappedBy = "name", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "groupBelonging")
 	private List<Profile> member;
-	@OneToMany(mappedBy = "name", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "adminOfGroups")
 	private List<Profile> admins;
 	private Profile founder;
-	@OneToMany(mappedBy = "name", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "groupApplication")
 	private List<Profile> waitinglist;
 	private Rules rules;
 	
-	public Group(String name, boolean isOpen, int minMember, int maxMember, Profile founder) {		
-		this.name = name;
+	public Group(String groupname, boolean isOpen, int minMember, int maxMember, Profile founder) {		
+		this.groupname = groupname;
 		this.isOpen = isOpen;
 		this.minMember = minMember;
 		this.maxMember = maxMember;
