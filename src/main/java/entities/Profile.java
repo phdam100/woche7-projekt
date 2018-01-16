@@ -18,6 +18,7 @@ public class Profile {
 	
 	@Id
 	private String username;
+	private String password;
 	private String name;
 	private String forename;
 	private String gitname;
@@ -35,7 +36,7 @@ public class Profile {
 	@OneToMany(mappedBy = "founder", fetch = FetchType.EAGER)
 	private List<Group> founderOf;
 	
-	public Profile(String username, String name, String forename) {
+	public Profile(String username, String password, String name, String forename) {
 		this.username = username;
 		this.name = name;
 		this.forename = forename;
