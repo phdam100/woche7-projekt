@@ -16,7 +16,7 @@ public class GroupController {
 		return "register";
 	}
 	
-	@PostMapping(path="register")
+	@PostMapping(path="/register")
 	public String registerPost() {
 		
 		return "login";
