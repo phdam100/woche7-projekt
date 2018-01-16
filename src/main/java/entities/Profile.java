@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import lombok.Data;
 
@@ -31,6 +32,8 @@ public class Profile {
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "group_application", joinColumns = { @JoinColumn(name = "username") }, inverseJoinColumns = { @JoinColumn(name = "groupname") })
 	private List<Group> groupApplication;
+	@OneToMany(mappedBy = "founder", fetch = FetchType.EAGER)
+	private List<Group> founderOf;
 	
 	public Profile(String username, String name, String forename) {
 		this.username = username;
@@ -41,6 +44,21 @@ public class Profile {
 		this.introText = "";
 	}
 	
+	public void foundGroup() {
+		
+	}
+	public void leaveGroup() {
+		
+	}
+	public void applyGroup() {
+		
+	}
+	public void joinGroup() {
+		
+	}
+	public void deleteGroup() {
+		
+	}
 	
 	
 

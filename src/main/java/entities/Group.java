@@ -5,10 +5,14 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import additions.Rules;
+import lombok.Data;
 
+@Data
 @Entity
 public class Group {
 	
@@ -21,6 +25,8 @@ public class Group {
 	private List<Profile> member;
 	@ManyToMany(mappedBy = "adminOfGroups")
 	private List<Profile> admins;
+	@ManyToOne
+	@JoinColumn(name = "founder")
 	private Profile founder;
 	@ManyToMany(mappedBy = "groupApplication")
 	private List<Profile> waitinglist;
@@ -39,7 +45,7 @@ public class Group {
 		this.waitinglist = new ArrayList();
 		this.member = init;
 		this.admins = init;
-		
+
 	}
 	
 }
