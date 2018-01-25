@@ -9,12 +9,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import additions.Rules;
 import lombok.Data;
 
 @Data
 @Entity
-public class Group {
+public class MyGroup {
 	
 	@Id
 	private String groupname;
@@ -30,9 +29,8 @@ public class Group {
 	private Profile founder;
 	@ManyToMany(mappedBy = "groupApplication")
 	private List<Profile> waitinglist;
-	private Rules rules;
 	
-	public Group(String groupname, boolean isOpen, int minMember, int maxMember, Profile founder) {		
+	public MyGroup(String groupname, boolean isOpen, int minMember, int maxMember, Profile founder) {		
 		this.groupname = groupname;
 		this.isOpen = isOpen;
 		this.minMember = minMember;

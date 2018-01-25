@@ -26,15 +26,15 @@ public class Profile {
 	private String introText;
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "group_belonging", joinColumns = { @JoinColumn(name = "username") }, inverseJoinColumns = { @JoinColumn(name = "groupname") })
-	private List<Group> groupBelonging;
-	@ManyToMany(fetch = FetchType.EAGER)
+	private List<MyGroup> groupBelonging;
+	@ManyToMany
 	@JoinTable(name = "admin_of_groups", joinColumns = { @JoinColumn(name = "username") }, inverseJoinColumns = { @JoinColumn(name = "groupname") })
-	private List<Group> adminOfGroups;
-	@ManyToMany(fetch = FetchType.EAGER)
+	private List<MyGroup> adminOfGroups;
+	@ManyToMany
 	@JoinTable(name = "group_application", joinColumns = { @JoinColumn(name = "username") }, inverseJoinColumns = { @JoinColumn(name = "groupname") })
-	private List<Group> groupApplication;
-	@OneToMany(mappedBy = "founder", fetch = FetchType.EAGER)
-	private List<Group> founderOf;
+	private List<MyGroup> groupApplication;
+	@OneToMany(mappedBy = "founder")
+	private List<MyGroup> founderOf;
 	
 	public Profile(String username, String password, String name, String forename) {
 		this.username = username;
@@ -43,6 +43,9 @@ public class Profile {
 		this.gitname = "";
 		this.workSamples = "";
 		this.introText = "";
+	}
+	public Profile() {
+		
 	}
 	
 	public void foundGroup() {
