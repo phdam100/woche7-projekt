@@ -1,8 +1,10 @@
 package de.propra.projekt7.groupfinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import de.propra.projekt7.repositories.ProfileRepository;
 import entities.Profile;
@@ -24,32 +26,19 @@ public class GroupController {
 	}
 	
 	@PostMapping(path="/register")
-	public String registerPost() {
-		Profile p1 = new Profile("XPeteX", "helloworld", "Peter", "Pan");
-		Profile p2 = new Profile("hhaha", "test", "rep", "rep");
-		pRepo.save(p1);
-		pRepo.save(p2);
-		
-		// Getting all Students
-		System.out.println("***** All Students *******");
-		for(Profile p : pRepo.findAll())
-		{
-			System.out.println(p);
+	public String registerPost(Model m, Profile p, @RequestParam String password1, @RequestParam String password2) {
+		m.addAttribute("p", p);
+		if(!password1.equals(password2)) {
+			m.addAttribute("passwordExc", "Passwörter stimmen nicht überein!");
+			return "register";
 		}
-    
-		// Getting the student with id 2
-		System.out.println("***** Student with ID 2 *******");
-		for(Profile p: pRepo.findByUsername("XPeteX"))
-		{
-			System.out.println(p);
+		if(password1.length()<4) {
+			m.addAttribute("passwordExc", "Passwort sollte mindestens 4 Zeichen enthalten!");
+			return "register";
 		}
+		p.setPassword(password1);		
+		pRepo.save(p);
 		
-		// Getting the student with id 2
-				System.out.println("***** Student with ID 2 *******");
-				for(Profile p: pRepo.findByUsername("hhaha"))
-				{
-					System.out.println(p);
-				}
 		return "login";
 	}
 }

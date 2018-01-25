@@ -46,4 +46,8 @@ public class MyGroup {
 
 	}
 	
+	public MyGroup() {
+		
+	}
+	
 }
