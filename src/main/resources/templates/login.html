@@ -11,6 +11,25 @@
 <form method="post">
 <div class="form-group" style="text-align: center;">&nbsp;</div>
 
+<div class="form-group" style="text-align: center;">
+	<label for="usernameInput">Benutzername:&nbsp;&nbsp; </label>
+	&nbsp; 
+	<input class="form-control" id="usernameInput" name="username" required="true" type="text" />
+</div>
+
+<div class="form-group" style="text-align: center;">
+	<label for="passwordInput">Passwort:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</label>
+	&nbsp;&nbsp; 
+	<input class="form-control" id="passwordInput" name="password" required="true" type="password" />
+</div>
+
+<div class="form-group" style="text-align: center;">&nbsp;</div>
+
+<div class="form-group" style="text-align: center;">
+	<b 	th:if="${passwordUsernameExc!=null}"
+		th:text="${passwordUsernameExc}"></b>
+</div>
+
 <p style="text-align: center;"><button class="btn btn-primary" type="submit">Login</button></p>
 </form>
 </div>

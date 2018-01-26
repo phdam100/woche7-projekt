@@ -16,8 +16,35 @@ public class GroupController {
 	ProfileRepository pRepo;
 	
 	@GetMapping(path="/")
-	public String login() {
+	public String login1() {
+		return login2();
+	}
+	
+	@GetMapping(path="/login")
+	public String login2() {
 		return "login";
+	}
+	
+	@PostMapping(path="/")
+	public String login1Post(Model m, @RequestParam String username, @RequestParam String password) {
+		return login2Post(m, username, password);
+	}
+	
+	@PostMapping(path="/login")
+	public String login2Post(Model m, @RequestParam String username, @RequestParam String password) {
+		
+		Profile pLogin = pRepo.findByUsername(username);
+		if(pLogin == null) {
+			m.addAttribute("passwordUsernameExc", "Falscher Benutzername oder Passwort");
+			return "login";
+		}
+		if(!pLogin.getPassword().equals(password))
+		{
+			m.addAttribute("passwordUsernameExc", "Falscher Benutzername oder Passwort");
+			return "login";
+		}
+		
+		return "index";
 	}
 	
 	@GetMapping(path="/register")
