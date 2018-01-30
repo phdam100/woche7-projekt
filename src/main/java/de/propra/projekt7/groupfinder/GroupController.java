@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
 import de.propra.projekt7.repositories.ProfileRepository;
 import entities.Profile;
@@ -26,25 +27,25 @@ public class GroupController {
 	}
 	
 	@PostMapping(path="/")
-	public String login1Post(Model m, @RequestParam String username, @RequestParam String password) {
+	public RedirectView login1Post(Model m, @RequestParam String username, @RequestParam String password) {
 		return login2Post(m, username, password);
 	}
 	
 	@PostMapping(path="/login")
-	public String login2Post(Model m, @RequestParam String username, @RequestParam String password) {
+	public RedirectView login2Post(Model m, @RequestParam String username, @RequestParam String password) {
 		
 		Profile pLogin = pRepo.findByUsername(username);
 		if(pLogin == null) {
 			m.addAttribute("passwordUsernameExc", "Falscher Benutzername oder Passwort");
-			return "login";
+			return new RedirectView("http://localhost:8080/index");
 		}
 		if(!pLogin.getPassword().equals(password))
 		{
 			m.addAttribute("passwordUsernameExc", "Falscher Benutzername oder Passwort");
-			return "login";
+			return new RedirectView("http://localhost:8080/index");
 		}
 		
-		return "index";
+		return new RedirectView("http://localhost:8080/index");
 	}
 	
 	@GetMapping(path="/register")
@@ -53,19 +54,19 @@ public class GroupController {
 	}
 	
 	@PostMapping(path="/register")
-	public String registerPost(Model m, Profile p, @RequestParam String password1, @RequestParam String password2) {
+	public RedirectView registerPost(Model m, Profile p, @RequestParam String password1, @RequestParam String password2) {
 		m.addAttribute("p", p);
 		if(!password1.equals(password2)) {
 			m.addAttribute("passwordExc", "Passwörter stimmen nicht überein!");
-			return "register";
+			return new RedirectView("http://localhost:8080/login");
 		}
 		if(password1.length()<4) {
 			m.addAttribute("passwordExc", "Passwort sollte mindestens 4 Zeichen enthalten!");
-			return "register";
+			return new RedirectView("http://localhost:8080/login");
 		}
 		p.setPassword(password1);		
 		pRepo.save(p);
 		
-		return "login";
+		return new RedirectView("http://localhost:8080/login");
 	}
 }
